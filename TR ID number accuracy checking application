@@ -1,0 +1,58 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+
+
+window = tk.Tk()
+window.geometry("495x285")
+window.title("TC NO SORGULAMA")
+window.iconbitmap("bayrak2.ico")
+img = tk.PhotoImage(file = "bayrak.png")
+window.resizable(False, False)
+
+turkbayrak = ttk.Label(window, image=img)
+turkbayrak.grid(column=0, row=0)
+
+tcgiris = ttk.Entry(window)
+tcgiris.place(x=320, y=125)
+
+def tcd():
+    tc = tcgiris.get()
+    tc =  str(tc)
+
+    if len(tc) != 11:
+        return False
+        
+    if not tc.isdigit():
+        return False
+        
+    if tc[0] == 0:
+        return False
+        
+    tc = [int(digit) for digit in tc]
+    a = sum(tc[0:9:2])
+    b = sum(tc[1:8:2])
+    c = (a * 7 - b) % 10
+    d = (sum(tc[:10]) % 10)
+
+    if tc[9] != c or tc[10] != d:
+        return False
+
+    else:
+        return True
+def yazdir():
+    if tcd():
+        messagebox.showinfo("GEÇERLİ","TC KİMLİK NO GEÇERLİ")
+    else:
+        messagebox.showerror("HATALI","TC KİMLİK NO GEÇERLİ DEĞİL")
+
+
+label= ttk.Label(window,
+                 text = "KİMLİK NO ")
+label.place(x=250, y=125)
+
+
+btn = ttk.Button(window, text="KONTROL ET",command=yazdir )
+btn.place(x=370, y=200)
+
+window.mainloop()
