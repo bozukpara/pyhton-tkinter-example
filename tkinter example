@@ -1,0 +1,75 @@
+from tkinter import *
+from PIL import ImageTk,Image
+import random
+from tkinter import messagebox
+
+
+def evet():
+    response = messagebox.askquestion("EMİN MİSİN", "EMİN MİSİN?")
+    Label(window, text=response).pack()
+    
+    
+    if response == "yes":
+        a = "KARDEŞİM O ZATEN SENSİN"
+        b = "LÜTFEN MELİH ABUAF OLMAK İÇİN PREMİUMA GEÇİN"
+
+        list = [b,b,b,a]
+        
+        abu = random.choice(list)
+
+        Label(window, text=abu).pack()
+        
+
+    else:
+        Label(window, text="tekrar bekleriz").pack()
+
+
+def motionMouse(event):
+    btnYes.place(x = random.randint(0, 500), y = random.randint(0, 500))
+
+def premium():
+    pre = Label(window, text="Premium kaydınız tamamlandı.", bg="#F5D952", font="Times 20 italic")
+    pre.pack(padx=100, pady=200)
+
+
+window = Tk()
+window.geometry("600x600")
+window.title("MELİH ABUAF")
+window.iconbitmap("C:\\Users\\bkara\Downloads\\melihabuaf.ico")
+
+temsili = Label(window, text="OLUCAĞINIZ KİŞİ", font = "Times 15 italic", fg="pink").place(x=175, y=375)
+
+photo = ImageTk.PhotoImage(Image.open("C:\\Users\\bkara\\OneDrive\\Resimler\\tkinter için fotolar\\kucukabuaf.png"))
+photo1 = Label(window, image=photo).place(x=250, y=400)
+
+premium = Button(text="Premiumu keşfet",
+                   bd=10,
+                   bg="#F6D260",
+                   fg="white",
+                   command=premium,
+                   activeforeground="Orange",
+                   activebackground="#59F452",
+                   font="calibri",
+                   height=2,
+                   highlightcolor="purple",
+                   justify="left",
+                   padx=2,
+                   pady=2,
+                   relief="ridge",
+                   )
+premium.pack()
+
+label = Label(window, text="MELİH ABUAF OL", font= "Times 25 italic", fg="green").pack()
+
+btnYes = Button(window, text="Hayır")
+
+btnYes.place(x=170, y=130)
+
+btnYes.bind("<Enter>", motionMouse)
+
+btnNo = Button(window, text = "Evet", command=evet, image=photo).place(x=350, y=130)
+
+answer = Label(window, text="")
+answer.pack(pady=20)
+
+window.mainloop()
